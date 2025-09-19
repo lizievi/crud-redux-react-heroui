@@ -14,12 +14,23 @@ export const userSlice = createSlice({
     },
     addUser:(state, action) => {
       const userToAdd = action.payload;
-      state.push(userToAdd);
+      // state.push(userToAdd);
+      return [...state, userToAdd];
+    },
+    editUser: (state, action) => {
+      const userToEdit = action.payload;
+      const userId = userToEdit.id;
+      return state.map((user) => {
+        if (user.id === userId) {
+          return userToEdit;
+        }
+        return user;
+      });
     }
   },
 });
 
-export const { deleteUser, addUser } = userSlice.actions;
+export const { deleteUser, addUser, editUser } = userSlice.actions;
 
 // export const { addUser } = addSlice.actions;
 export default userSlice.reducer;

@@ -1,6 +1,7 @@
+import {v4 as uuid} from 'uuid';
 export const users = [
   {
-    id: 1,
+    id: uuid(),
     name: "Tony Reichert",
     role: "CEO",
     team: "Management",
@@ -10,7 +11,7 @@ export const users = [
     email: "tony.reichert@example.com",
   },
   {
-    id: 2,
+    id: uuid(),
     name: "Zoey Lang",
     role: "Tech Lead",
     team: "Development",
@@ -20,7 +21,7 @@ export const users = [
     email: "zoey.lang@example.com",
   },
   {
-    id: 3,
+    id: uuid(),
     name: "Jane Fisher",
     role: "Sr. Dev",
     team: "Development",
@@ -30,7 +31,7 @@ export const users = [
     email: "jane.fisher@example.com",
   },
   {
-    id: 4,
+    id: uuid(),
     name: "William Howard",
     role: "C.M.",
     team: "Marketing",
@@ -40,7 +41,7 @@ export const users = [
     email: "william.howard@example.com",
   },
   {
-    id: 5,
+    id: uuid(),
     name: "Kristen Copper",
     role: "S. Manager",
     team: "Sales",
@@ -50,7 +51,7 @@ export const users = [
     email: "kristen.cooper@example.com",
   },
   {
-    id: 6,
+    id: uuid(),
     name: "Brian Kim",
     role: "P. Manager",
     team: "Management",
@@ -60,7 +61,7 @@ export const users = [
     status: "Active",
   },
   {
-    id: 7,
+    id: uuid(),
     name: "Michael Hunt",
     role: "Designer",
     team: "Design",
@@ -70,7 +71,7 @@ export const users = [
     email: "michael.hunt@example.com",
   },
   {
-    id: 8,
+    id: uuid(),
     name: "Samantha Brooks",
     role: "HR Manager",
     team: "HR",
@@ -80,7 +81,7 @@ export const users = [
     email: "samantha.brooks@example.com",
   },
   {
-    id: 9,
+    id: uuid(),
     name: "Frank Harrison",
     role: "F. Manager",
     team: "Finance",
@@ -90,7 +91,7 @@ export const users = [
     email: "frank.harrison@example.com",
   },
   {
-    id: 10,
+    id: uuid(),
     name: "Emma Adams",
     role: "Ops Manager",
     team: "Operations",
@@ -100,7 +101,7 @@ export const users = [
     email: "emma.adams@example.com",
   },
   {
-    id: 11,
+    id: uuid(),
     name: "Brandon Stevens",
     role: "Jr. Dev",
     team: "Development",
@@ -110,7 +111,7 @@ export const users = [
     email: "brandon.stevens@example.com",
   },
   {
-    id: 12,
+    id: uuid(),
     name: "Megan Richards",
     role: "P. Manager",
     team: "Product",
@@ -120,7 +121,7 @@ export const users = [
     email: "megan.richards@example.com",
   },
   {
-    id: 13,
+    id: uuid(),
     name: "Oliver Scott",
     role: "S. Manager",
     team: "Security",
@@ -130,7 +131,7 @@ export const users = [
     email: "oliver.scott@example.com",
   },
   {
-    id: 14,
+    id: uuid(),
     name: "Grace Allen",
     role: "M. Specialist",
     team: "Marketing",
@@ -140,7 +141,7 @@ export const users = [
     email: "grace.allen@example.com",
   },
   {
-    id: 15,
+    id: uuid(),
     name: "Noah Carter",
     role: "IT Specialist",
     team: "I. Technology",
@@ -150,7 +151,7 @@ export const users = [
     email: "noah.carter@example.com",
   },
   {
-    id: 16,
+    id: uuid(),
     name: "Ava Perez",
     role: "Manager",
     team: "Sales",
@@ -160,7 +161,7 @@ export const users = [
     email: "ava.perez@example.com",
   },
   {
-    id: 17,
+    id: uuid(),
     name: "Liam Johnson",
     role: "Data Analyst",
     team: "Analysis",
@@ -170,7 +171,7 @@ export const users = [
     email: "liam.johnson@example.com",
   },
   {
-    id: 18,
+    id: uuid(),
     name: "Sophia Taylor",
     role: "QA Analyst",
     team: "Testing",
@@ -180,7 +181,7 @@ export const users = [
     email: "sophia.taylor@example.com",
   },
   {
-    id: 19,
+    id: uuid(),
     name: "Lucas Harris",
     role: "Administrator",
     team: "Information Technology",
@@ -190,7 +191,7 @@ export const users = [
     email: "lucas.harris@example.com",
   },
   {
-    id: 20,
+    id: uuid(),
     name: "Mia Robinson",
     role: "Coordinator",
     team: "Operations",

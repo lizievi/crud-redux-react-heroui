@@ -20,15 +20,16 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  Select,
+  SelectItem,
 } from "@heroui/react";
 
 import { columns, statusOptions, statusColorMap } from "../data/index";
 import { capitalize } from "../utils/capitalize";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteUser } from "../features/userSlice";
+import { deleteUser, editUser } from "../features/userSlice";
 import { useNavigate } from "react-router-dom";
 
-// import UserForm from "./components/userForm.jsx";
 export const PlusIcon = ({ size = 24, width, height, ...props }) => {
   return (
     <svg
@@ -146,14 +147,18 @@ export default function UsersTable() {
   });
   const [page, setPage] = React.useState(1);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [isModalEditOpen, setIsModalEditOpen] = React.useState(false);
+  const [isModalViewOpen, setIsModalViewOpen] = React.useState(false);
   const [userToDelete, setUserToDelete] = React.useState(null);
-
+  const [userToEdit, setUserToEdit] = React.useState(null);
+  const [userToView, setUserToView] = React.useState(null);
   const hasSearchFilter = Boolean(filterValue);
   const navigate = useNavigate();
+  const [formData, setFormData] = React.useState(null);
 
   const onNavigateToFormUser = useCallback(() => {
     navigate("/form");
-  }, [navigate])
+  }, [navigate]);
 
   const headerColumns = React.useMemo(() => {
     if (visibleColumns === "all") return columns;
@@ -207,6 +212,17 @@ export default function UsersTable() {
     setUserToDelete(user);
   }, []);
 
+  const onEditUser = React.useCallback((user) => {
+    setIsModalEditOpen(true);
+    setUserToEdit(user);
+    setFormData(user);
+  }, []);
+
+  const onViewUser = React.useCallback((users) => {
+    setIsModalViewOpen(true);
+    setUserToView(users);
+  }, []);
+
   const dispatch = useDispatch();
 
   const handleDeleteConfirmed = React.useCallback(() => {
@@ -216,6 +232,15 @@ export default function UsersTable() {
       setUserToDelete(null);
     }
   }, [userToDelete, dispatch]);
+
+  const handleEditConfirmed = React.useCallback(() => {
+    if (formData) {
+      dispatch(editUser(formData));
+      setIsModalEditOpen(false);
+      setUserToEdit(null);
+      setFormData(null);
+    }
+  }, [formData, dispatch]);
 
   const renderCell = React.useCallback(
     (user, columnKey) => {
@@ -265,8 +290,11 @@ export default function UsersTable() {
                   onAction={(key) => {
                     switch (key) {
                       case "view":
+                        onViewUser(user);
                         break;
+
                       case "edit":
+                        onEditUser(user);
                         break;
                       case "delete":
                         onDeleteUser(user);
@@ -287,7 +315,7 @@ export default function UsersTable() {
           return cellValue;
       }
     },
-    [onDeleteUser]
+    [onDeleteUser, onEditUser, onViewUser]
   );
 
   const onNextPage = React.useCallback(() => {
@@ -418,7 +446,7 @@ export default function UsersTable() {
     onSearchChange,
     onClear,
     users.length,
-    onNavigateToFormUser
+    onNavigateToFormUser,
   ]);
 
   const bottomContent = React.useMemo(() => {
@@ -466,6 +494,21 @@ export default function UsersTable() {
     onNextPage,
     onPreviousPage,
   ]);
+
+  const handleChangeToEdit = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSelectedChangeToEdit = (selected) => {
+    const selectedValue = Array.from(selected)[0];
+    setFormData({
+      ...formData,
+      status: selectedValue,
+    });
+  };
 
   return (
     <>
@@ -525,6 +568,144 @@ export default function UsersTable() {
                   Eliminar
                 </Button>
               </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+      <Modal isOpen={isModalEditOpen} onClose={() => setIsModalEditOpen(false)}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader>Editar usuario</ModalHeader>
+              {userToEdit && (
+                <ModalBody user={formData}>
+                  <Input
+                    label="Name"
+                    labelPlacement="outside"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChangeToEdit}
+                  />
+                  <Input
+                    label="Role"
+                    labelPlacement="outside"
+                    name="role"
+                    value={formData.role}
+                    onChange={handleChangeToEdit}
+                  />
+                  <Input
+                    label="Team"
+                    labelPlacement="outside"
+                    name="team"
+                    value={formData.team}
+                    onChange={handleChangeToEdit}
+                  />
+                  <Select
+                    label="Status"
+                    labelPlacement="outside"
+                    name="status"
+                    selectedKeys={formData.status}
+                    // onChange={handleChangeToEdit}
+                    onSelectionChange={handleSelectedChangeToEdit}
+                  >
+                    <SelectItem key="active">Active</SelectItem>
+                    <SelectItem key="paused">Paused</SelectItem>
+                    <SelectItem key="vacation">Vacation</SelectItem>
+                  </Select>
+                  <Input
+                    label="Avatar"
+                    labelPlacement="outside"
+                    name="avatar"
+                    value={formData.avatar}
+                    onChange={handleChangeToEdit}
+                  />
+                  <Input
+                    label="Age"
+                    labelPlacement="outside"
+                    name="age"
+                    value={formData.age}
+                    onChange={handleChangeToEdit}
+                  />
+                  <Input
+                    label="Email"
+                    labelPlacement="outside"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChangeToEdit}
+                  />
+                </ModalBody>
+              )}
+              <ModalFooter>
+                <Button color="danger" variant="flat" onPress={onClose}>
+                  Close
+                </Button>
+                <Button color="primary" onPress={handleEditConfirmed}>
+                  Edit
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+      <Modal isOpen={isModalViewOpen} onClose={() => setIsModalViewOpen(false)}>
+        <ModalContent>
+          {userToView && (
+            <>
+              <ModalHeader>View user</ModalHeader>
+              <ModalBody user={userToView}>
+                
+                <Input
+                  label="Name"
+                  labelPlacement="outside"
+                  name="name"
+                  value={userToView.name}
+                  disabled
+                />
+                <Input
+                  label="Role"
+                  labelPlacement="outside"
+                  name="role"
+                  value={userToView.role}
+                  disabled
+                />
+                <Input
+                  label="Team"
+                  labelPlacement="outside"
+                  name="team"
+                  value={userToView.team}
+                  disabled
+                />
+
+                <Input
+                  label="Status"
+                  labelPlacement="outside"
+                  name="status"
+                  value={userToView.status}
+                  disabled
+                />
+
+                <Input
+                  label="Avatar"
+                  labelPlacement="outside"
+                  name="avatar"
+                  value={userToView.avatar}
+                  disabled
+                />
+                <Input
+                  label="Age"
+                  labelPlacement="outside"
+                  name="age"
+                  value={userToView.age}
+                  disabled
+                />
+                <Input
+                  label="Email"
+                  labelPlacement="outside"
+                  name="email"
+                  value={userToView.email}
+                  disabled
+                />
+              </ModalBody>
             </>
           )}
         </ModalContent>
