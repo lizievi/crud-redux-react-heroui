@@ -7,6 +7,7 @@ import { store } from "./app/store";
 import App from "./App.jsx";
 import UserForm from "./Pages/UserForm.jsx";
 import UsersTable from "./Pages/UsersTable.jsx";
+// import { HeroUIProvider } from "@heroui/react";
 
 let router = createBrowserRouter([
   {
@@ -23,7 +24,6 @@ let router = createBrowserRouter([
       },
     ],
   },
-
 ]);
 
 createRoot(document.getElementById("root")).render(

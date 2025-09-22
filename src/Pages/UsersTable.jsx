@@ -29,6 +29,7 @@ import { capitalize } from "../utils/capitalize";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteUser, editUser } from "../features/userSlice";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 
 export const PlusIcon = ({ size = 24, width, height, ...props }) => {
   return (
@@ -511,44 +512,51 @@ export default function UsersTable() {
   };
 
   return (
-    <>
-      <Table
-        isHeaderSticky
-        aria-label="Example table with custom cells, pagination and sorting"
-        bottomContent={bottomContent}
-        bottomContentPlacement="outside"
-        classNames={{
-          wrapper: "max-h-[382px]",
-        }}
-        selectedKeys={selectedKeys}
-        selectionMode="multiple"
-        sortDescriptor={sortDescriptor}
-        topContent={topContent}
-        topContentPlacement="outside"
-        onSelectionChange={setSelectedKeys}
-        onSortChange={setSortDescriptor}
-      >
-        <TableHeader columns={headerColumns}>
-          {(column) => (
-            <TableColumn
-              key={column.uid}
-              align={column.uid === "actions" ? "center" : "start"}
-              allowsSorting={column.sortable}
-            >
-              {column.name}
-            </TableColumn>
-          )}
-        </TableHeader>
-        <TableBody emptyContent={"No users found"} items={sortedItems}>
-          {(item) => (
-            <TableRow key={item.id}>
-              {(columnKey) => (
-                <TableCell>{renderCell(item, columnKey)}</TableCell>
-              )}
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+    <div className="flex flex-col items-center">
+      <Header />
+      <div className="mt-20">   
+        <h1 className="text-2xl font-bold mb-5 text-[rgb(0,111,238)]">Users Table</h1>
+        <Table
+          isHeaderSticky
+          aria-label="Example table with custom cells, pagination and sorting"
+          bottomContent={bottomContent}
+          bottomContentPlacement="outside"
+          classNames={{
+            wrapper: "max-h-[382px]",
+          }}
+          selectedKeys={selectedKeys}
+          selectionMode="multiple"
+          sortDescriptor={sortDescriptor}
+          topContent={topContent}
+          topContentPlacement="outside"
+          onSelectionChange={setSelectedKeys}
+          onSortChange={setSortDescriptor}
+          className="max-w-400"
+        >
+          
+          <TableHeader columns={headerColumns}>
+            {(column) => (
+              <TableColumn
+                key={column.uid}
+                align={column.uid === "actions" ? "center" : "start"}
+                allowsSorting={column.sortable}
+              >
+                {column.name}
+              </TableColumn>
+            )}
+          </TableHeader>
+          <TableBody emptyContent={"No users found"} items={sortedItems}>
+            {(item) => (
+              <TableRow key={item.id}>
+                {(columnKey) => (
+                  <TableCell>{renderCell(item, columnKey)}</TableCell>
+                )}
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <ModalContent>
           {(onClose) => (
@@ -653,7 +661,6 @@ export default function UsersTable() {
             <>
               <ModalHeader>View user</ModalHeader>
               <ModalBody user={userToView}>
-                
                 <Input
                   label="Name"
                   labelPlacement="outside"
@@ -710,6 +717,6 @@ export default function UsersTable() {
           )}
         </ModalContent>
       </Modal>
-    </>
+    </div>
   );
 }
