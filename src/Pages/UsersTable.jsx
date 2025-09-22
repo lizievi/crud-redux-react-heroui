@@ -30,6 +30,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteUser, editUser } from "../features/userSlice";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export const PlusIcon = ({ size = 24, width, height, ...props }) => {
   return (
@@ -514,8 +515,8 @@ export default function UsersTable() {
   return (
     <div className="flex flex-col items-center">
       <Header />
-      <div className="mt-20">   
-        <h1 className="text-2xl font-bold mb-5 text-[rgb(0,111,238)]">Users Table</h1>
+      <div className="mt-10">   
+        <h1 className="text-2xl font-bold mb-5 text-primary-500">Users Table</h1>
         <Table
           isHeaderSticky
           aria-label="Example table with custom cells, pagination and sorting"
@@ -584,7 +585,7 @@ export default function UsersTable() {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader>Editar usuario</ModalHeader>
+              <ModalHeader className="text-2xl font-bold text-primary-500">User Edit</ModalHeader>
               {userToEdit && (
                 <ModalBody user={formData}>
                   <Input
@@ -593,6 +594,7 @@ export default function UsersTable() {
                     name="name"
                     value={formData.name}
                     onChange={handleChangeToEdit}
+                    className="active:border-primary-500"
                   />
                   <Input
                     label="Role"
@@ -609,11 +611,11 @@ export default function UsersTable() {
                     onChange={handleChangeToEdit}
                   />
                   <Select
-                    label="Status"
+                    label="Status" 
                     labelPlacement="outside"
                     name="status"
                     selectedKeys={formData.status}
-                    // onChange={handleChangeToEdit}
+                    placeholder={formData.status}
                     onSelectionChange={handleSelectedChangeToEdit}
                   >
                     <SelectItem key="active">Active</SelectItem>
@@ -656,10 +658,10 @@ export default function UsersTable() {
         </ModalContent>
       </Modal>
       <Modal isOpen={isModalViewOpen} onClose={() => setIsModalViewOpen(false)}>
-        <ModalContent>
+        <ModalContent className="pb-4">
           {userToView && (
             <>
-              <ModalHeader>View user</ModalHeader>
+              <ModalHeader className="text-2xl font-bold text-primary-500">View user</ModalHeader>
               <ModalBody user={userToView}>
                 <Input
                   label="Name"
@@ -717,6 +719,7 @@ export default function UsersTable() {
           )}
         </ModalContent>
       </Modal>
+      <Footer />
     </div>
   );
 }

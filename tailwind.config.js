@@ -1,55 +1,5 @@
-// tailwind.config.js
 import { heroui } from "@heroui/theme";
-// tailwind.config.js
-// const {heroui} = require("@heroui/react");
 
-// @type {import('tailwindcss').Config}
-// export default {
-//     content: [
-//     "./src/**/*.{js,ts,jsx,tsx}", 
-//   ],
-//   plugins: [
-//     heroui({
-//       themes: {
-//         "purple-dark": {
-//           extend: "dark", // <- inherit default values from dark theme
-//           colors: {
-//             background: "#0D001A",
-//             foreground: "#ffffff",
-//             primary: {
-//               50: "#3B096C",
-//               100: "#520F83",
-//               200: "#7318A2",
-//               300: "#9823C2",
-//               400: "#c031e2",
-//               500: "#DD62ED",
-//               600: "#F182F6",
-//               700: "#FCADF9",
-//               800: "#FDD5F9",
-//               900: "#FEECFE",
-//               DEFAULT: "#DD62ED",
-//               foreground: "#ffffff",
-//             },
-//             focus: "#F182F6",
-//           },
-//           layout: {
-//             disabledOpacity: "0.3",
-//             radius: {
-//               small: "4px",
-//               medium: "6px",
-//               large: "8px",
-//             },
-//             borderWidth: {
-//               small: "1px",
-//               medium: "2px",
-//               large: "3px",
-//             },
-//           },
-//         },
-//       },
-//     }),
-//   ],
-// };
 
 /** @type {import('tailwindcss').Config} */
 export const content = [
@@ -59,7 +9,14 @@ export const content = [
   './node_modules/@heroui/theme/dist/components/(button|snippet|code|input).js'
 ];
 export const theme = {
-  extend: {},
+  extend: {
+    textShadow: {
+      sm: '1px 1px 2px #000000',
+      md: '2px 2px 4px rgba(0, 0, 0, 0.7)',
+      lg: '4px 4px 8px rgba(0, 0, 0, 0.5)',
+      'primary': '0 0 8px rgba(0, 111, 238 , 0.8)',
+    },
+  },
 };
 export const darkMode = "class";
 export const plugins = [heroui()];

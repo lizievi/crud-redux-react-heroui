@@ -26,9 +26,10 @@ export default function UserForm() {
 
   return (
     <Form
-      className="w-full justify-center items-center space-y-4"
+      className="w-full justify-center items-center space-y-4 mt-10"
       onSubmit={onAddUser}
     >
+      <h1 className="text-2xl font-bold mb-5 text-primary-500">Add new user</h1>
       <div className="flex flex-col gap-4 max-w-md">
         <Input
           isRequired
@@ -60,6 +61,7 @@ export default function UserForm() {
           labelPlacement="outside"
           name="status"
           placeholder="Select status"
+          
         >
           <SelectItem key="active">Active</SelectItem>
           <SelectItem key="paused">Paused</SelectItem>
